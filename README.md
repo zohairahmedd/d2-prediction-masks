@@ -11,5 +11,8 @@ Developed a script using Python that will predict annotations using the Detectro
 - run with "python3 extract_predictions.py (path to image) (path for the directory to store the annotated image)"
 
 ## Example of Running Script (absolute path)
+- python3 extract_predictions.py C:\\\directory\\\cat.jpg C:directory\\\annotated_images
+- annotated_images will be created if it does not exist at specified location
+
+## Extra
 - included test image as an example
-- python3 extract_predictions.py C:\\\scripts\\\results\\\cat.jpg C:\\\desktop\\\annotated_image | annotated_images will be created if it does not exist at specified location
