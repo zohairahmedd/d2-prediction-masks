@@ -6,6 +6,7 @@ from detectron2.data import MetadataCatalog
 import argparse
 import cv2
 import numpy as np
+import os
 
 def main ():
     """
@@ -16,18 +17,22 @@ def main ():
     """
     parser = argparse.ArgumentParser(description='processing some image') # necessary for implementing command-line
     parser.add_argument('input_image_path', type=str, help='path to image') # adds argument input_image_path to the parser
+    parser.add_argument('output_dir', type=str, help='directory to store output') # adds argument output_dir to the parser
 
     args = parser.parse_args() # allows us to use the arguments in the parser (args.argument_name)
 
-    image_to_annotate(args.input_image_path)
+    image_to_annotate(args.input_image_path, args.output_dir)
 
-def image_to_annotate(input_image_path):
+def image_to_annotate(input_image_path, output_dir):
     """
     annotate any file using detectron2 default prediction model
 
     arguments:
         input_image_path (str): path to image file
     """
+
+    os.makedirs(output_dir, exist_ok=True) # create the directory IF it doesnt exist
+
     # configuration file for the model
     cfg = get_cfg()
     cfg.merge_from_file(model_zoo.get_config_file("COCO-InstanceSegmentation/mask_rcnn_R_50_FPN_3x.yaml"))
@@ -64,7 +69,7 @@ def image_to_annotate(input_image_path):
         for mask, cls in zip(pred_masks, pred_classes):
             area = np.sum(mask)  # calculate the area by summing all true values (sum of all pixels set to 1, assuming binary mask)
             label = metadata.thing_classes[int(cls)] # meaningful display/storage of detected object types
-            print(f"Label: {label}, Mask area: {area}")
+            print(f"Label: {label} - Mask area: {area} pixels")
 
     else:
         print("No more instances detected.")
@@ -72,6 +77,10 @@ def image_to_annotate(input_image_path):
     cv2.imshow("visualized", visualized)
     cv2.waitKey(0)
     cv2.destroyAllWindows()
+
+    # save the annotated image
+    output_path = os.path.join(output_dir, "annotated_" + os.path.basename(input_image_path))
+    cv2.imwrite(output_path, visualized)
 
 if __name__ == '__main__':
     main()
