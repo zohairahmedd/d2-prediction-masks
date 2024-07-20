@@ -8,7 +8,7 @@ Developed a script using Python that will predict annotations using the Detectro
 - download detectron2: python3 -m pip install detectron2 OR python3 -m pip install 'git+https://github.com/facebookresearch/detectron2.git@v0.6'
 - download opencv: python3 -m pip install opencv-python
 - download numpy: python3 -m pip install numpy
-- run with "python3 extract_predictions.py (path to image) (path for the directory to store the annotated image)
+- run with "python3 extract_predictions.py (path to image) (path for the directory to store the annotated image)"
 
 ## Example of Running Script (absolute path)
 - included test image as an example
