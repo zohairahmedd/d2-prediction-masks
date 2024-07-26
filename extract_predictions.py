@@ -10,7 +10,7 @@ import os
 
 def main ():
     """
-    take command line arguments input for the paths of the location of the image
+    take command line arguments input for the paths of both the image to be annotated and where the annotation is stored
 
     arguments:
         none
